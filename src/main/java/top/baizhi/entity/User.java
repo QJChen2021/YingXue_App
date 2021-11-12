@@ -26,4 +26,6 @@ public class User {
   private Date create_date;
   @Excel(name = "状态")
   private Integer status;
+  @Excel(name = "性别")
+  private Character sex;
 }

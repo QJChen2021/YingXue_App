@@ -58,6 +58,7 @@ public class UserServiceImpl implements UserService {
         user1.setWechat(user.getPhone());
         user1.setCreate_date(new Date());
         user1.setStatus(0);
+        user1.setSex('男');
         userDao.add(user1);
     }
 

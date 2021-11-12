@@ -21,7 +21,7 @@
     </select>
 
     <insert id="add" parameterType="top.baizhi.entity.User">
-        insert into yx_user values (#{id},#{phone},#{username},#{head_img},#{brief},#{wechat},#{create_date},#{status})
+        insert into yx_user values (#{id},#{phone},#{username},#{head_img},#{brief},#{wechat},#{create_date},#{status},#{sex})
     </insert>
     
     <delete id="delete" parameterType="String">

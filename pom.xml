@@ -104,6 +104,12 @@
             <artifactId>easypoi-annotation</artifactId>
             <version>4.0.0</version>
         </dependency>
+<!--        goEasy-->
+        <dependency>
+            <groupId>io.goeasy</groupId>
+            <artifactId>goeasy-sdk</artifactId>
+            <version>0.3.16</version>
+        </dependency>
     </dependencies>
 
     <build>

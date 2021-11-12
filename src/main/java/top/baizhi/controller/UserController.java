@@ -2,6 +2,8 @@ package top.baizhi.controller;
 
 import cn.afterturn.easypoi.excel.ExcelExportUtil;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
+import com.alibaba.fastjson.JSON;
+import io.goeasy.GoEasy;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -44,11 +46,20 @@ public class UserController {
     @RequestMapping("add")
     public void add(@RequestParam MultipartFile photo, HttpServletRequest request, User user){
         userService.add(photo,request,user);
+        Map<String, Object> map = userService.queryByMonthCount();
+        String json = JSON.toJSONString(map);
+        GoEasy goEasy = new GoEasy( "http://rest-hangzhou.goeasy.io", "BC-3caba4bc937d40679055db34fab563b1");
+        goEasy.publish("my_channel", json);
     }
 
     @RequestMapping("delete")
     public void delete(String id){
         userService.delete(id);
+        Map<String, Object> map = userService.queryByMonthCount();
+
+        String json = JSON.toJSONString(map);
+        GoEasy goEasy = new GoEasy( "http://rest-hangzhou.goeasy.io", "BC-3caba4bc937d40679055db34fab563b1");
+        goEasy.publish("my_channel", json);
     }
 
     @RequestMapping("updateStatus")

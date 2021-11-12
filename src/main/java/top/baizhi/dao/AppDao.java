@@ -1,7 +1,6 @@
 package top.baizhi.dao;
 
 import org.springframework.stereotype.Repository;
-import top.baizhi.entity.YxCategory;
 import top.baizhi.vo.Category;
 import top.baizhi.vo.Video;
 

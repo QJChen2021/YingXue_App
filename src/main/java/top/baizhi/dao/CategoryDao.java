@@ -4,7 +4,6 @@ import org.springframework.stereotype.Repository;
 import top.baizhi.entity.YxCategory;
 
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public interface CategoryDao {

@@ -1,12 +1,10 @@
 package top.baizhi.dao;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import top.baizhi.entity.Video;
 import top.baizhi.vo.FindLevels;
 
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public interface VideoDao {

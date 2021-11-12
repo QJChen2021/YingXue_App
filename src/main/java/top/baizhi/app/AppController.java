@@ -1,6 +1,5 @@
 package top.baizhi.app;
 
-import com.aliyun.oss.OSS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- namespace代表实现接口的全名：包名.接口名 -->
+<mapper namespace="top.baizhi.dao.AppDao">
+
+<!--	<resultMap id="map" type="top.baizhi.vo.Category">-->
+<!--		<id column="id" property="id"/>-->
+<!--		<result column="cateName" property="cateName"/>-->
+<!--		<result column="levels" property="levels"/>-->
+<!--		<result column="parentId" property="parentId"/>-->
+<!--		<collection property="categoryList" ofType="top.baizhi.vo.Category">-->
+<!--			<id column="id" property="id"/>-->
+<!--			<result column="cateName" property="cateName"/>-->
+<!--			<result column="levels" property="levels"/>-->
+<!--			<result column="parentId" property="parentId"/>-->
+<!--		</collection>-->
+<!--	</resultMap>-->
+
+    <select id="queryVideo" resultType="top.baizhi.vo.Video">
+		select yv.id,title videoTitle,cover_path cover,video_path path,yv.create_date uploadTime,yv.brief description,yc.cate_name cateName,head_img userphoto
+		from yx_video yv
+				 left join yx_category yc on yv.category_id=yc.id
+				 left join yx_user yu on yv.user_id = yu.id
+	</select>
+	
+	<select id="queryAllCategory" resultType="top.baizhi.vo.Category">
+		select id,cate_name cateName,levels,parent_id parentId from yx_category
+			<where>
+				<if test="parentId!=null">
+					and parent_id = #{parentId}
+				</if>
+				<if test="levels!=null">
+					and levels = #{levels}
+				</if>
+			</where>
+	</select>
+
+</mapper>

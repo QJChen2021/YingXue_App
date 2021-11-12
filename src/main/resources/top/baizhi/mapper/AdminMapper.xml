@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- namespace代表实现接口的全名：包名.接口名 -->
+<mapper namespace="top.baizhi.dao.AdminDao">
+
+    <select id="queryByName" resultType="top.baizhi.entity.Admin">
+		select id,username,password from admin where username = #{username}
+	</select>
+
+</mapper>

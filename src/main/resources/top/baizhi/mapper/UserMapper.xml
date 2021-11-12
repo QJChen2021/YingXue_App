@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- namespace代表实现接口的全名：包名.接口名 -->
+<mapper namespace="top.baizhi.dao.UserDao">
+
+    <sql id="all">
+        select id,phone,username,head_img,brief,wechat,create_date,status from yx_user
+    </sql>
+
+    <select id="findAllPage" resultType="Integer">
+        select COUNT(*) count from yx_user
+    </select>
+
+    <select id="findAll" resultType="top.baizhi.entity.User">
+        <include refid="all"></include> limit #{page},#{size}
+	</select>
+
+    <select id="findHeadImg" resultType="String">
+        select head_img from yx_user where id = #{id}
+    </select>
+
+    <insert id="add" parameterType="top.baizhi.entity.User">
+        insert into yx_user values (#{id},#{phone},#{username},#{head_img},#{brief},#{wechat},#{create_date},#{status})
+    </insert>
+    
+    <delete id="delete" parameterType="String">
+        delete from yx_user where id=#{id}
+    </delete>
+
+    <update id="updateStatus" parameterType="String">
+        update yx_user set status = #{status} where id=#{id}
+    </update>
+
+    <select id="queryByMonthCount" parameterType="String" resultType="top.baizhi.vo.MonthAndCount">
+        select month(create_date) month,count(*) count from yx_user where sex=#{sex} group by month(create_date)
+    </select>
+
+</mapper>

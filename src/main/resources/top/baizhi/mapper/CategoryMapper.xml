@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- namespace代表实现接口的全名：包名.接口名 -->
+<mapper namespace="top.baizhi.dao.CategoryDao">
+
+    <select id="queryByLevels" resultType="YxCategory">
+		select id,cate_name catename,levels,parent_id parentId from yx_category where levels = #{levels}
+	</select>
+
+	<select id="queryByParent" resultType="YxCategory">
+		select id,cate_name catename,levels,parent_id parentId from yx_category where parent_id = #{parentId}
+	</select>
+
+	<insert id="insertLevels" parameterType="YxCategory">
+		insert into yx_category values (#{id},#{cateName},#{levels},#{parentId})
+	</insert>
+
+	<insert id="insertCategory" parameterType="YxCategory">
+		insert into yx_category values (#{id},#{cateName},#{levels},#{parentId})
+	</insert>
+
+	<delete id="deleteByParentId" parameterType="String">
+		delete from yx_category where id = #{id}
+	</delete>
+
+	<update id="updateByParentId" parameterType="String">
+		update yx_category set cate_name = #{cateName} where id = #{id}
+	</update>
+
+	<delete id="deleteLevels" parameterType="String">
+		delete from yx_category where id = #{id}
+	</delete>
+</mapper>

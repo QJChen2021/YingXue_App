@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- namespace代表实现接口的全名：包名.接口名 -->
+<mapper namespace="top.baizhi.dao.VideoDao">
+
+    <resultMap id="map" type="Video">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="brief" property="brief"/>
+        <result column="coverPath" property="coverPath"/>
+        <result column="videoPath" property="videoPath"/>
+        <result column="createDate" property="createDate"/>
+        <association property="categoryId" javaType="YxCategory">
+            <result column="catename" property="cateName"/>
+        </association>
+        <association property="userId" javaType="User">
+            <result column="username" property="username"/>
+        </association>
+    </resultMap>
+
+    <select id="findAllPage" resultType="Integer">
+        select COUNT(*) count from yx_video
+    </select>
+
+    <select id="findAll" resultMap="map">
+        SELECT
+            vid id,
+            title,
+            yv.brief,
+            coverPath,
+            videoPath,
+            createDate,
+            yc.id cid,
+            cate_name catename,
+            yu.id uid,
+            username
+        FROM
+            (
+                SELECT
+                    id vid,
+                    title,
+                    brief,
+                    cover_path coverPath,
+                    video_path videoPath,
+                    create_date createDate,
+                    category_id categoryId,
+                    user_id userId,
+                    group_id groupId
+                FROM
+                    yx_video
+                        LIMIT
+                    #{page},#{size}
+            ) yv
+                LEFT JOIN yx_category yc ON yv.categoryId = yc.id
+                LEFT JOIN yx_user yu ON yv.userId = yu.id
+    </select>
+
+    <select id="findLevels" resultType="top.baizhi.vo.FindLevels" parameterType="Integer">
+        select id,cate_name name from yx_category where levels = #{levels}
+    </select>
+
+    <select id="findLevels2" resultType="top.baizhi.vo.FindLevels" parameterType="Integer">
+        select id,cate_name name from yx_category where parent_id = #{levels}
+    </select>
+
+    <insert id="add">
+        insert into yx_video values(#{id},#{title},#{brief},#{coverPath},#{videoPath},#{createDate},#{categoryId.id},#{userId.id},#{groupId})
+    </insert>
+
+    <delete id="deleteByVideo" parameterType="String">
+        delete from yx_video where id = #{id}
+    </delete>
+</mapper>

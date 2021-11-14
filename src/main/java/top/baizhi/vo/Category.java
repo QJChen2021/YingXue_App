@@ -1,12 +1,12 @@
 package top.baizhi.vo;
 
 import lombok.Data;
-import top.baizhi.entity.YxCategory;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Data
-public class Category {
+public class Category implements Serializable {
     private String id;
     private String cateName;
     private int levels;

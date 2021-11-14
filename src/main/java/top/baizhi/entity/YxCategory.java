@@ -2,8 +2,10 @@ package top.baizhi.entity;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class YxCategory {
+public class YxCategory implements Serializable {
 
   private String id;
   private String cateName;

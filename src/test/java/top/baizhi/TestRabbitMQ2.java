@@ -1,36 +1,15 @@
 package top.baizhi;
 
 import com.rabbitmq.client.*;
-import com.sun.org.apache.xpath.internal.operations.String;
-import org.junit.Test;
+import top.baizhi.util.RabbitMQUtil;
 
 import java.io.IOException;
-import java.util.concurrent.TimeoutException;
-
 public class TestRabbitMQ2 {
     //开发消费者
-
-    @Test
-    public void testRabbitMQ2(){
-        //创建连接工厂
-        ConnectionFactory factory = new ConnectionFactory();
-
-        //配置服务器地址
-        factory.setHost("192.168.154.129");
-        //rabitMQ端口
-        factory.setPort(5672);
-        //操作主机
-        factory.setVirtualHost("/YingXue");
-        factory.setHandshakeTimeout(5000);
-        //用户名
-        factory.setUsername("admin");
-        //密码
-        factory.setPassword("admin");
-
+    public static void main(String[] args) {
+        Connection connection = RabbitMQUtil.getConnection();
         //得到连接
         try{
-            Connection connection = factory.newConnection();
-
             //获取通道
             Channel channel = connection.createChannel();
 
@@ -41,7 +20,7 @@ public class TestRabbitMQ2 {
              * @param autoDelete 是否自动删除（没有连接自动删除） true:自动删除   false:不自动删除
              * @param arguments 队列的其他属性(构造参数)
              */
-            channel.queueDeclare("javamessage",false,false,false,null);
+            channel.queueDeclare("javamessage",true,false,true,null);
 
             /**消费者消费消息
              * @param queue 队列名称
@@ -50,10 +29,10 @@ public class TestRabbitMQ2 {
              */
             channel.basicConsume("javamessage",true,new DefaultConsumer(channel){
                 @Override
-                public void handleDelivery(java.lang.String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
-                    super.handleDelivery(consumerTag, envelope, properties, body);
-                    java.lang.String string = new java.lang.String(body);
-                    System.out.println("消费者获取消息："+string);
+                public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
+//                byte --> String
+                    String s = new String(body);
+                    System.out.println("消费者获取消息:  "+s);
                 }
             });
         }catch (Exception e){

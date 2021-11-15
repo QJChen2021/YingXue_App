@@ -2,28 +2,15 @@ package top.baizhi;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.MessageProperties;
+import top.baizhi.util.RabbitMQUtil;
 
 public class TestRabbitMQ {
     public static void main(String[] args) {
-        //创建连接工厂
-        ConnectionFactory factory = new ConnectionFactory();
 
-        //配置服务器地址
-        factory.setHost("192.168.154.129");
-        //rabitMQ端口
-        factory.setPort(5672);
-        //操作主机
-        factory.setVirtualHost("/YingXue");
-        factory.setHandshakeTimeout(5000);
-        //用户名
-        factory.setUsername("admin");
-        //密码
-        factory.setPassword("admin");
+        Connection connection = RabbitMQUtil.getConnection();
 
         try{
-            //获取链接
-            Connection connection = factory.newConnection();
             //获取通道
             Channel channel = connection.createChannel();
 
@@ -35,15 +22,12 @@ public class TestRabbitMQ {
              * @param arguments 队列的其他属性(构造参数)
              */
 
-            channel.queueDeclare("javamessage",false,false,false,null);
+            channel.queueDeclare("javamessage",true,false,true,null);
 
             //发送消息到队列中
-            channel.basicPublish("","javamessage",null,"Hello World!".getBytes());
+            channel.basicPublish("","javamessage", MessageProperties.PERSISTENT_TEXT_PLAIN,"Hello World!".getBytes());
 
-            //关闭通道
-            channel.close();
-            //关闭链接
-            connection.close();
+            RabbitMQUtil.close(channel,connection);
         }catch (Exception e){
             e.printStackTrace();
         }

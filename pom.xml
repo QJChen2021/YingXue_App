@@ -121,11 +121,11 @@
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 <!--        rabbitMQ-->
-        <dependency>
-            <groupId>com.rabbitmq</groupId>
-            <artifactId>amqp-client</artifactId>
-            <version>5.7.2</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.rabbitmq</groupId>-->
+<!--            <artifactId>amqp-client</artifactId>-->
+<!--            <version>5.7.2</version>-->
+<!--        </dependency>-->
         <!--        RabbitMQ SpringBoot-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

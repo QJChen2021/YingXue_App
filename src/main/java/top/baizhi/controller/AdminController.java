@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import top.baizhi.entity.Admin;
 import top.baizhi.service.AdminService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @RestController
@@ -19,7 +20,7 @@ public class AdminController {
     private AdminService adminService;
 
     @RequestMapping("login")
-    public Map<String,Object> login(@RequestBody Admin admin){
-        return adminService.queryByName(admin);
+    public Map<String,Object> login(@RequestBody Admin admin, HttpServletRequest httpServletRequest){
+        return adminService.queryByName(admin,httpServletRequest);
     }
 }
